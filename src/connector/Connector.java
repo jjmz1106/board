@@ -37,9 +37,8 @@ public class Connector {
 				e.printStackTrace();
 			}
 		}
-		conn=null;
+		conn = null;
 	}
-	public static void main(String[] args) {
-		getConnection();
-	}
+
+	
 }
