@@ -18,22 +18,22 @@ String sql = "SELECT num, title, credat, cretim, creusr FROM board";
 if(search!=null && !"".equals(search)){
 	sql += " where ";
 	if("1".equals(search)){
-		sql += "num"; 
+		sql += "num like concat('%',?,'%')";
 	}else if("2".equals(search)){
-		sql += "title";
+		sql += "title like concat('%',?,'%')";
 	}else if("3".equals(search)){
-		sql += "creusr";
-	}else if("4".equals(search)){
 		sql += " title like concat('%',?,'%')";
 		sql += " or content like concat('%',?,'%')";
+	}else if("4".equals(search)){
+		sql += "creusr like concat('%',?,'%')";
 	}else if("5".equals(search)){
-		sql += "cretim";
+		sql += "credat like concat('%',?,'%')";
 	}
 }
 PreparedStatement ps = con.prepareStatement(sql);
 if(search!=null && !"".equals(search)){
 	ps.setString(1,searchStr);
-	if("4".equals(search)){
+	if("3".equals(search)){
 		ps.setString(2,searchStr);
 	}
 
@@ -44,8 +44,8 @@ ResultSet rs = ps.executeQuery();
 	<select name="search">
 		<option value="1">번호</option>
 		<option value="2">제목</option>
-		<option value="3">작성자</option>
-		<option value="4">제목+내용</option>
+		<option value="3">제목+내용</option>
+		<option value="4">작성자</option>
 		<option value="5">작성일</option>
 	</select>
 	<input type="text" name="searchStr">
@@ -53,11 +53,11 @@ ResultSet rs = ps.executeQuery();
 </form>
 <table border="1">
 	<tr>
-		<th align="center">번호</th>
-		<th align="center">제목</th>
-		<th align="center">작성일</th>
-		<th align="center">시간</th>
-		<th align="center">작성자</th>
+		<th>번호</th>
+		<th>제목</th>
+		<th>작성일</th>
+		<th>시간</th>
+		<th>작성자</th>
 	</tr>
 
 <%

@@ -15,14 +15,16 @@ String content = request.getParameter("content");
 String creusr = request.getParameter("creusr");
 
 Connection conn = Connector.getConnection();
-String sql = "select num, title, content, credat, cretim, creusr from board where 1=1";
+String sql = "select num, title, content, credat, cretim, creusr from board where 1=1 ";
 if(title!=null && !"".equals(title)){
 	sql += "and title like concat('%',?,'%')";
 }
 if(content!=null && !"".equals(content)){
 	sql += "and content like concat('%',?,'%')";
 }
-
+if(creusr!=null && !"".equals(creusr)){
+	sql +=" and creusr like concat('%',?,'%') ";
+}
 PreparedStatement ps = conn.prepareStatement(sql);
 int cnt = 1;
 if(title!=null && !"".equals(title)){
@@ -53,13 +55,15 @@ ResultSet rs = ps.executeQuery();
 	</tr>	
 <%
 while(rs.next()){
-	out.println("<tr>");
-	out.println("<td>" +rs.getInt("num") + "</td>");
-	out.println("<td>" +rs.getString("title") + "</td>");
-	out.println("<td>" +rs.getString("content") + "</td>");
-	out.println("<td>" +rs.getString("credat") + "</td>");
-	out.println("<td>" +rs.getString("creusr") + "</td>");
-	out.println("</tr>");
+	%>
+	<tr>
+		<td><%=rs.getInt("num") %></td>
+		<td><%=rs.getString("title") %></td>
+		<td><%=rs.getString("content") %></td>
+		<td><%=rs.getString("credat") %></td>
+		<td><%=rs.getString("creusr") %></td>
+	</tr>
+<%
 }
 %>
 </table>

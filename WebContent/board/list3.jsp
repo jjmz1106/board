@@ -12,7 +12,7 @@
 <%
 String[] searchs = request.getParameterValues("search");
 Connection conn = Connector.getConnection();
-String sql = "select num, title, content, credat, cretim, creusr from board where 1=1";
+String sql = "select num, title, content, credat, cretim, creusr from board where 1=1 ";
 if(searchs!=null){
 for(String search:searchs){
 	sql += " and " + search + " like concat('%',?,'%')";
@@ -28,10 +28,10 @@ for(int i=0;i<searchs.length;i++){
 ResultSet rs = ps.executeQuery();
 %>
 <form>
-<label for="title">제목</label><input type="checkbox" id="title" name="search" value="title">
-<label for="content">내용</label><input type="checkbox" id="content" name="search" value="content">
-<label for="creusr">유저</label><input type="checkbox" id="creusr" name="search" value="creusr">
-<input type="text" name="searchStr">
+	<label for="title">제목</label><input type="checkbox" id="title" name="search" value="title">
+	<label for="content">내용</label><input type="checkbox" id="content" name="search" value="content">
+	<label for="creusr">유저</label><input type="checkbox" id="creusr" name="search" value="creusr">
+	<input type="text" name="searchStr">
 <button>검색</button>
 </form>
 <table border="1">
@@ -44,14 +44,15 @@ ResultSet rs = ps.executeQuery();
 	</tr>
 <%
 while(rs.next()){
-	out.println("<tr>");
-	out.println("<td>" +rs.getInt("num") + "</td>");
-	out.println("<td>" +rs.getString("title") + "</td>");
-	out.println("<td>" +rs.getString("content") + "</td>");
-	out.println("<td>" +rs.getString("credat") + "</td>");
-	out.println("<td>" +rs.getString("creusr") + "</td>");
-	out.println("</tr>");
-	
+%>
+	<tr>
+		<td><%=rs.getInt("num") %></td>
+		<td><%=rs.getString("title") %></td>
+		<td><%=rs.getString("content") %></td>
+		<td><%=rs.getString("credat") %></td>
+		<td><%=rs.getString("creusr") %></td>
+	</tr>
+<%
 }
 %>
 </table>
