@@ -10,10 +10,10 @@
 </head>
 <body>
 <%
-Connection con = Connector.getConnection();
 String search = request.getParameter("search");
 String searchStr = request.getParameter("searchStr");
 
+Connection conn = Connector.getConnection();
 String sql = "SELECT num, title, credat, cretim, creusr FROM board";
 if(search!=null && !"".equals(search)){
 	sql += " where ";
@@ -30,7 +30,7 @@ if(search!=null && !"".equals(search)){
 		sql += "credat like concat('%',?,'%')";
 	}
 }
-PreparedStatement ps = con.prepareStatement(sql);
+PreparedStatement ps = conn.prepareStatement(sql);
 if(search!=null && !"".equals(search)){
 	ps.setString(1,searchStr);
 	if("3".equals(search)){
