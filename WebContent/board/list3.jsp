@@ -11,6 +11,7 @@
 <body>
 <%
 String[] searchs = request.getParameterValues("search");
+String searchStr = request.getParameter("searchStr");
 Connection conn = Connector.getConnection();
 String sql = "select num, title, content, credat, cretim, creusr from board where 1=1 ";
 if(searchs!=null){
@@ -19,7 +20,7 @@ for(String search:searchs){
 	}
 }
 PreparedStatement ps = conn.prepareStatement(sql);
-String searchStr = request.getParameter("searcgStr");
+String searchStr = request.getParameter("searchStr");
 if(searchs!=null){
 for(int i=0;i<searchs.length;i++){
 	ps.setString((i+1),searchs[i]);
