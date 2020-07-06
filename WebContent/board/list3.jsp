@@ -20,7 +20,6 @@ for(String search:searchs){
 	}
 }
 PreparedStatement ps = conn.prepareStatement(sql);
-String searchStr = request.getParameter("searchStr");
 if(searchs!=null){
 for(int i=0;i<searchs.length;i++){
 	ps.setString((i+1),searchStr);
